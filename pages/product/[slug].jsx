@@ -1,22 +1,18 @@
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useContext } from "react";
-import Layout from "../../components/Layout";
-import data from "../../utils/data";
-import { Store } from "../../utils/Store";
-import axios from "axios";
-import Product from "../../models/Product";
-import db from "../../utils/db";
-import { toast } from "react-toastify";
+import axios from 'axios';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useContext } from 'react';
+import { toast } from 'react-toastify';
+import Layout from '../../components/Layout';
+import Product from '../../models/Product';
+import db from '../../utils/db';
+import { Store } from '../../utils/Store';
 
 export default function ProductScreen(props) {
   const { product } = props;
-  const router = useRouter();
   const { state, dispatch } = useContext(Store);
-  const { query } = useRouter();
-  const { slug } = query;
-  const product = data.products.find((x) => x.slug === slug);
+  const router = useRouter();
   if (!product) {
     return <Layout title="Produt Not Found">Produt Not Found</Layout>;
   }
@@ -27,11 +23,11 @@ export default function ProductScreen(props) {
     const { data } = await axios.get(`/api/products/${product._id}`);
 
     if (data.countInStock < quantity) {
-      return toast.error("Sorry. Product is out of stock");
+      return toast.error('Sorry. Product is out of stock');
     }
 
-    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
-    router.push("/cart");
+    dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } });
+    router.push('/cart');
   };
 
   return (
@@ -47,7 +43,7 @@ export default function ProductScreen(props) {
             width={640}
             height={640}
             layout="responsive"
-          />
+          ></Image>
         </div>
         <div>
           <ul>
@@ -70,7 +66,7 @@ export default function ProductScreen(props) {
             </div>
             <div className="mb-2 flex justify-between">
               <div>Status</div>
-              <div>{product.countInStock > 0 ? "In stock" : "Unavailable"}</div>
+              <div>{product.countInStock > 0 ? 'In stock' : 'Unavailable'}</div>
             </div>
             <button
               className="primary-button w-full"

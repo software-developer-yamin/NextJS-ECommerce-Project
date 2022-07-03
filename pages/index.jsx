@@ -1,6 +1,5 @@
 import Layout from "../components/Layout";
 import ProductItem from "../components/ProductItem";
-import data from "../utils/data";
 import axios from "axios";
 import { useContext } from "react";
 import { toast } from "react-toastify";
